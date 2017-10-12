@@ -82,9 +82,9 @@ module.exports = (passport, LocalStrategy, nodemailer)=>{
                                             html: html
                                         };
         
-                                        transporter.sendMail(mailOptions, (error, info)=>{
+                                        transporter.sendMail(mailOptions, (errror, info)=>{
                                             if(error){
-                                                console.log(error);
+                                                console.log(errror);
                                             }else{
                                                 console.log('Message sent to ' +req.body.regEmail + " " + info.response);
                                                 return done(null, newUser);
