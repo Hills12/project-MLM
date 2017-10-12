@@ -73,7 +73,7 @@ module.exports = (passport, LocalStrategy, nodemailer)=>{
         
                                         let html = `<h1>The Verification Mail</h1>\n
                                                     <p>Please find the the link below to verify your registration</p>
-                                                    <h1><a href="http://99896256.ngrok.io/verify/${eVerCode}">the link</a></h1>`;
+                                                    <h1><a href="http://travcut.herokuapp.com/verify/${eVerCode}">the link</a></h1>`;
         
                                         let mailOptions = {
                                             from: 'tobishills12@gmail.com',
