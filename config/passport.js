@@ -64,10 +64,10 @@ module.exports = (passport, LocalStrategy, nodemailer)=>{
                                         else console.log(err);
                                     }else{
                                         let transporter = nodemailer.createTransport({
-                                            service: 'Gmail',
+                                            service: 'outlook',
                                             auth: {
-                                                user: 'tobishills12@gmail.com',
-                                                pass: 'Catholic 1234'
+                                                user: 'travcut12@outlook.com',
+                                                pass: 'Catholic12'
                                             }
                                         });
         
@@ -76,7 +76,7 @@ module.exports = (passport, LocalStrategy, nodemailer)=>{
                                                     <h1><a href="http://travcutt.herokuapp.com/verify/${eVerCode}">the link</a></h1>`;
         
                                         let mailOptions = {
-                                            from: 'tobishills12@gmail.com',
+                                            from: 'travcut12@outlook.com',
                                             to: req.body.regEmail,
                                             subject: "Travcut Travel Bank",
                                             html: html
