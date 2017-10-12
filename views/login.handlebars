@@ -1,0 +1,52 @@
+
+
+<body>
+  <div class="signup__container">
+  <div class="container__child signup__thumbnail">
+    <div class="thumbnail__logo">
+      <h1 class="logo__text">Travcut MLM -- Login</h1>
+    </div>
+    <div class="thumbnail__content text-center">
+      <h1 class="heading--primary">Earn and Travel</h1>
+      <h2 class="heading--secondary">Welcome back to the elitist league!</h2>
+    </div>
+    <div class="thumbnail__links">
+      <ul class="list-inline m-b-0 text-center">
+        <li><a href="http://alexdevero.com/" target="_blank"><i class="fa fa-globe"></i></a></li>
+        <li><a href="https://www.behance.net/alexdevero" target="_blank"><fa class="fa fa-behance"></fa></a></li>
+        <li><a href="https://github.com/alexdevero" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a href="https://twitter.com/alexdevero" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <br /><br /><br />
+    <form method="POST">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" name="logUserName" id="username" autofocus required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="logPassword" id="password" required />
+      </div>
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            <input class="btn btn--form" type="submit" value="Login" />
+          </li>
+          <li>
+            <a class="signup__link" href="/register">I am not yet a member</a>
+          </li>
+          <li>
+            <p class="text-danger">{{error}}</p>
+          </li>
+        </ul>
+      </div>
+    </form>  
+  </div>
+</div>
+  
+  
+</body>

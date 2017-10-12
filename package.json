@@ -1,0 +1,29 @@
+{
+  "name": "project-mlm",
+  "version": "1.0.0",
+  "description": "intergrating MLM into travels and tours",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tobi Okedeji",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "cloudinary": "^1.9.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.5",
+    "formidable": "^1.1.1",
+    "mongoose": "^4.10.8",
+    "multer": "^1.3.0",
+    "nexmo": "^2.0.2",
+    "node-duphlux": "^1.0.0",
+    "nodemailer": "^4.1.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "shortid": "^2.2.8"
+  }
+}

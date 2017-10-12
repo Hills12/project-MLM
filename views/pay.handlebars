@@ -1,0 +1,598 @@
+<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <!-- =============================================== -->
+  {{> bars}}
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{packageType}} Startup Payment
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Quick Tips!!!</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          The invoice below is for the payment of the startup capital for the bronze package as explained in the <a href="#">package guide</a>. Carefully cross-check the invoice and then proceed to make your startup payment. 
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <strong>The journey begins with a step...</strong>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+
+      <!-- =========================================================== -->
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-play"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Startup</span>
+              <span class="info-box-number">{{startup}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Startup in a bit...
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-hashtag"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">total Earned</span>
+              <span class="info-box-number">{{totalAmount}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Zero naira made!
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-plane"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Travel Bank</span>
+              <span class="info-box-number">{{tBank}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Bank is empty!!!
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Withdrawable</span>
+              <span class="info-box-number">{{Withdrawable}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Yet to sow...
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- =========================================================== -->
+
+    {{#if refId}}
+     <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Who Refered You?</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Referrer Name</label>
+                <input class="form-control select2" disabled="disabled" style="width: 100%;" value="{{refName}}" />
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Referrer ID</label>
+                <input class="form-control select2" disabled="disabled" style="width: 100%;" value="{{refId}}">
+              </div>
+              <!-- /.form-group -->
+              
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <!-- /.box -->
+      {{/if }}
+
+      <!-- =========================================================== -->
+
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="box box-warning box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Startup Payment</h3>
+            </div>
+            <div class="box-body">
+              Cross-check the invoice
+            </div>
+            <!-- /.box-body -->
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <div class="box box-danger box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Direct Referral</h3>
+            </div>
+            <div class="box-body">
+              No direct referral yet
+            </div>
+            <!-- /.box-body -->
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <div class="col-md-3">
+          <div class="box box-danger box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Passive Referral</h3>
+            </div>
+            <div class="box-body">
+              No Passive referral yet
+            </div>
+            <!-- /.box-body -->
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+        <div class="col-md-3">
+          <div class="box box-danger box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Request Withdrawal</h3>
+            </div>
+            <div class="box-body">
+              Not yet ripe for withdrawal
+            </div>
+            <!-- /.box-body -->
+            <!-- Loading (remove the following to stop the loading)-->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- end loading -->
+          </div>
+          <!-- /.box -->
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+      <!-- =========================================================== -->
+
+      <!-- Main content -->
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">Travcut MLM. ***INVOICE***
+            <small class="pull-right">Date: {{date}}</small>
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          From
+          <address>
+            <strong>{{Name}}</strong><br>
+            Phone: {{phoneNo}}<br>
+            Email: {{email}}
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          To
+          <address>
+            <strong>Travcut MLM</strong><br>
+            Phone: (555) 539-1037<br>
+            Email: john.doe@example.com
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <br>
+          <br>
+          <b>Order ID:</b> {{financeID}}<br>
+          <br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>Startup Capital</td>
+              <td>Payment for the capital to begin the run through the {{packageType}} Travel Package</td>
+              <td>NGN{{packageAmount}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+          <p class="lead">Payment Methods:</p>
+          <img src="../../dist/img/credit/visa.png" alt="Visa">
+          <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <p class="lead">Amount Due {{date}}</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:50%">{{packageType}} Startup:</th>
+                <td>NGN{{packageAmount}}</td>
+              </tr>
+              <tr>
+                <th>Bank Charges (10%)</th>
+                <td>NGN1,500</td>
+              </tr>
+              <tr>
+                <th>Total:</th>
+                <td>NGN16,500</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- this row will not appear when printing -->
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+          <a href="/financial-auth" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Proceed Payment
+          </a>
+          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Generate PDF
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- =========================================================== -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      Developed by<b> Tobi Okedeji</b>
+    </div>
+    <strong>Copyright &copy; 2017 <a href="https://adminlte.io">Travcut MLM</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
+</script>
+</body>

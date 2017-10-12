@@ -1,0 +1,18 @@
+﻿
+/* =============================================================
+   GENERAL STYLES
+ ============================================================ */
+body {
+    font-family: 'Open Sans', sans-serif;
+   
+}
+.text-center {
+    text-align:center;
+}
+.pad-top {
+    padding-top:40px;
+}
+
+p {
+    padding:20px 10px 20px 10px;
+}

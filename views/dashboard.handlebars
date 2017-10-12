@@ -1,0 +1,512 @@
+<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <!-- ============================================== -->
+  {{> bars}}
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        The Dashboard
+        <small>it all begins here</small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">You Found Yourself Here Too?</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          Welcome to the league of elites! We are glad to have you around. Thank you for entrusting us with your information and be rest assured that they are save with us. We understand that you are aware of our packages, if not please click <a href="#">here</a> to intimate yourself with them. <b>NEXT</b> is that you pick up one of those packages so you can proceed in your journey to Earn and Travel...
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <strong>Enjoy Your Stay!</strong>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+
+      <!-- =========================================================== -->
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-play"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Startup</span>
+              <span class="info-box-number">{{startup}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    No startup yet.
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-hashtag"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">total Earned</span>
+              <span class="info-box-number">{{totalAmount}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Zero naira made!
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-plane"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Travel Bank</span>
+              <span class="info-box-number">{{tBank}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Bank is empty!!!
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box bg-aqua">
+            <span class="info-box-icon"><i class="fa fa-money"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Withdrawable</span>
+              <span class="info-box-number">{{Withdrawable}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+                  <span class="progress-description">
+                    Yet to sow...
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- =========================================================== -->
+
+     <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title">Who Refered You?</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Referrer Name</label>
+                <input class="form-control select2" disabled="disabled" style="width: 100%;" value="{{refName}}" />
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Referrer ID</label>
+                <input class="form-control select2" disabled="disabled" style="width: 100%;" value="{{refId}}">
+              </div>
+              <!-- /.form-group -->
+              
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <!-- /.box -->
+
+      <!-- =========================================================== -->
+
+      <!-- Direct Chat -->
+      <div class="row">
+        <div class="col-md-3">
+          <!-- DIRECT CHAT PRIMARY -->
+          <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bronze Package</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="More"data-widget="chat-pane-toggle">
+                  <i class="fa fa-book"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <!-- /.box-body -->
+            <form action="/package/bronze" method="post" class="box-footer">
+              <button type="submit" class="btn btn-primary btn-flat btn-group-justified">Go for Bronze!</button>
+            </form>
+            <!-- /.box-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <!-- DIRECT CHAT SUCCESS -->
+          <div class="box box-success direct-chat direct-chat-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Silver Package</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="More"data-widget="chat-pane-toggle">
+                  <i class="fa fa-book"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <button type="submit" class="btn btn-success btn-flat btn-group-justified">Go for Silver!</button>
+            </div>
+            <!-- /.box-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <!-- DIRECT CHAT WARNING -->
+          <div class="box box-warning direct-chat direct-chat-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Gold Package</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="More"data-widget="chat-pane-toggle">
+                  <i class="fa fa-book"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <button type="submit" class="btn btn-warning btn-flat btn-group-justified">Go for Gold!</button>
+            </div>
+            <!-- /.box-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <!-- DIRECT CHAT DANGER -->
+          <div class="box box-danger direct-chat direct-chat-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Platnum Package</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="More"data-widget="chat-pane-toggle">
+                  <i class="fa fa-book"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <button type="submit" class="btn btn-danger btn-flat btn-group-justified">Go for Platinum!</button>
+            </div>
+            <!-- /.box-footer-->
+          </div>
+          <!--/.direct-chat -->
+        </div>
+        <!-- /.col -->
+
+        
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      Developed by<b> Tobi Okedeji</b>
+    </div>
+    <strong>Copyright &copy; 2017 <a href="https://adminlte.io">Travcut MLM</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/dist/js/demo.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.sidebar-menu').tree()
+  })
+</script>
+</body>
