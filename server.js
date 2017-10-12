@@ -20,7 +20,7 @@ const   route = require("./routes/route.js");
         configs = require("./config/config.js");
 
 //connect to the database************************************
-mongoose.connect(configs.development.dbLocation)
+mongoose.connect(configs.production.dbLocation)
         .connection.on("connected", ()=>console.log("Server connected to mongoDB through mongoose ODM"));
 
 cloudinary.config({ 
