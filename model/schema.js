@@ -21,41 +21,33 @@ let userSchema = new Schema({
 let financeSchema = new Schema({
     userId: String,
     refererId: String,
-    bankName: String,
-    accNum : String,
-    accName : String,
     finCode : String,
     level1 : {
-        level : Number,
         totalAmount : Number,
         startup : Number,
         tBank : Number,
         Withdrawable : Number,
+        constantWithdrawable : Number
     },
     level2 : {
-        level : Number,
         totalAmount : Number,
         startup : Number,
         tBank : Number,
         Withdrawable : Number,
+        constantWithdrawable : Number
     },
-    level3 : {
-        level : Number,
-        totalAmount : Number,
-        startup : Number,
-        tBank : Number,
-        Withdrawable : Number,
-    },
-    level4 : {
-        level : Number,
-        totalAmount : Number,
-        startup : Number,
-        tBank : Number,
-        Withdrawable : Number,
+    getPay : {
+        bankName: String,
+        accNum : String,
+        accName : String,
+        bvn : String,
+        level1: Number,
+        level2:  Number
     },
     packageType : String,
     packageAmount : Number,
     paymentMade : Boolean,
+    packageComplete : Boolean
 });
 
 let dRefSchema = new Schema({
@@ -68,13 +60,10 @@ let dRefSchema = new Schema({
             RefNum : String,
             img : String,
             startupPaid: Boolean,
-            level1 : String,
-            level2 : String,
-            level3 : String,
-            level4 : String
+            level1 : String
         }
     ]
-})
+});
 
 let PRefSchema = new Schema({
     upperRef : String,
@@ -87,15 +76,18 @@ let PRefSchema = new Schema({
             RefNum : String,
             img : String,
             startupPaid: Boolean,
-            level1 : String,
-            level2 : String,
-            level3 : String,
-            level4 : String
+            level1 : String
         }
     ]
+});
+
+let AdminSchema = new Schema({
+    username : String,
+    password : String,
 })
 
 exports.User = mongoose.model("User", userSchema);
 exports.Finance = mongoose.model("Finance", financeSchema);
 exports.DirectRef = mongoose.model("DirectRef", dRefSchema);
 exports.PassiveRef = mongoose.model("PassiveRef", PRefSchema);
+exports.Admin = mongoose.model("Admin", AdminSchema);

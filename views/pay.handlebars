@@ -17,7 +17,7 @@
 
     <!-- Main content -->
     <section class="content">
-
+      {{{fincodeErr}}}
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="box-body">
-          The invoice below is for the payment of the startup capital for the bronze package as explained in the <a href="#">package guide</a>. Carefully cross-check the invoice and then proceed to make your startup payment. 
+          The invoice below is for the payment of the startup capital for the {{packageType}} package as explained in the <a href="#">package guide</a>. Carefully cross-check the invoice and then proceed to make your startup payment. 
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
@@ -353,11 +353,14 @@
       <!-- /.row -->
 
       <!-- this row will not appear when printing -->
-      <div class="row no-print">
+      <div id="payo" class="row no-print">
         <div class="col-xs-12">
           <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <a href="/financial-auth" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Proceed Payment
-          </a>
+          
+          <button class="btn btn-success pull-right" data-toggle="modal" data-target="#finRegModal" autofocus><i class="fa fa-credit-card"></i> Proceed Payment</button>
+          
+          {{!-- <a href="/financial-auth" class="btn btn-success pull-right" autofocus><i class="fa fa-credit-card"></i> Proceed Payment
+          </a> --}}
           <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
             <i class="fa fa-download"></i> Generate PDF
           </button>
@@ -372,6 +375,82 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+  <!--Fincode Modal -->
+<div class="modal fade in" id="finRegModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/financial-auth/{{packageType}}" method="Post" onsubmit="finRegBtn.disabled = true; return true;">
+      <div class="modal-header">
+        <h4 class="modal-title">Travel Bank Financial Registration</h4>
+        <p class="text-info"><strong>PS</strong>: The Information inputed here will used on every financial transaction on this platform.</p>
+      </div>
+      <div class="modal-body">
+        <label>Account Name:</label> <span class="text-info">The bank account name you wish to recieve cash on</span>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user"></i></span>
+          <input type="text" class="form-control" name="accName" required autofocus />
+        </div>
+        <br />
+        <label>Account Number:</label> <span class="text-info">The bank account number you wish to recieve cash on</span>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+          <input type="text" class="form-control" name="accNum" required />
+        </div>
+        <br />
+        <label>BVN:</label> <span class="text-info">Your unique Bank Verification Number needed to verify your account ownership</span>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-bank"></i></span>
+          <input type="text" class="form-control" name="bvn" required />
+        </div>
+        <br />
+          <label>Bank Name</label>
+          <select class="form-control select2 select2-hidden-accessible" name="bankName" style="width: 100%;" required>
+            <option value="Access Bank">Access Bank</option>
+            <option value="Citibank">Citibank</option>
+            <option value="Diamond Bank">Diamond Bank</option>
+            <option value="Dynamic Standard Bank">Dynamic Standard Bank</option>
+            <option value="Development Financial Pruben Bank">Development Financial Pruben Bank</option>
+            <option value="Ecobank Nigeria">Ecobank Nigeria</option>
+            <option value="Fidelity Bank Nigeria">Fidelity Bank Nigeria</option>
+            <option value="First Bank Nigeria (FBN)">First Bank Nigeria (FBN)</option>
+            <option value="First City Monument Bank (FCMB)">First City Monument Bank (FCMB)</option>
+            <option value="Guarantee Trust Bank (GTB)">Guarantee Trust Bank (GTB)</option>
+            <option value="Heritage Bank plc (HB)">Heritage Bank plc (HB)</option>
+            <option value="Keystone Bank Limited">Keystone Bank Limited</option>
+            <option value="Providus Bank plc">Providus Bank plc</option>
+            <option value="Skye Bank">Skye Bank</option>
+            <option value="Stanbic IBTC Bank Nigeria Limited">Stanbic IBTC Bank Nigeria Limited</option>
+            <option value="Standard Chartered Bank">Standard Chartered Bank</option>
+            <option value="Sterling Bank">Sterling Bank</option>
+            <option value="Suntrust Bank Nigeria Limited">Suntrust Bank Nigeria Limited</option>
+            <option value="Union Bank of Nigeria">Union Bank of Nigeria</option>
+            <option value="United Bank for Africa (UBA)">United Bank for Africa (UBA)</option>
+            <option value="Unity Bank plc">Unity Bank plc</option>
+            <option value="Wema Bank">Wema Bank</option>
+            <option value="Zenith Bank">Zenith Bank</option>
+          </select>
+        <br />
+        <label>Travel Bank Code:</label> <span class="text-info">This code will be required for you to make any financial transaction</span>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-key"></i></span>
+          <input type="password" class="form-control" name="finCode" required />
+        </div>
+        <br />
+        <label>Re-type Travel Bank Code:</label>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-key"></i></span>
+          <input type="password" class="form-control" name="finCode2" required />
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-group-justified" name="finRegBtn">Proceed</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Fincode Modal -->
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">

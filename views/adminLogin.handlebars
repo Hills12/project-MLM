@@ -1,0 +1,83 @@
+<body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
+<div class="wrapper" style="height: auto; min-height: 100%;">
+
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand"><b>Travcut</b>MLM <b>Admin</b></a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+    <div class="content-wrapper" style="min-height: 281px;">
+        <div class="container">
+        <!-- Main content -->
+            <section class="content">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                        <h3 class="box-title">Admin Login</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form method="Post" onsubmit="adminLogBtn.disabled = true; return true;">
+                        <div class="box-body">
+                            <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" name="adminUserName" class="form-control" id="exampleInputEmail1" placeholder="Enter Username">
+                            </div>
+                            <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="adminPassword" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>           
+                        </div>
+                        <a href="/admin/register" style="margin-left: 10px;">Please click here to Register as admin</a>
+                        <p class="text-danger" style="margin-left: 10px;">{{adminError}}</p>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary" name="adminLogBtn">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </section>
+        </div>
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        Developed by<b> Tobi Okedeji</b>
+      </div>
+        <strong>Copyright &copy; 2017 <a href="https://adminlte.io">Travcut MLM</a>.</strong> All rights
+        reserved.
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+
+</body>

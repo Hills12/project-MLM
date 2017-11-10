@@ -7,7 +7,8 @@ const   shortId = require("shortid"),
 const   User = schema.User,
         Finance = schema.Finance,
         DirectRef = schema.DirectRef,
-        PassiveRef = schema.PassiveRef;
+        PassiveRef = schema.PassiveRef,
+        Admin = schema.Admin;
 
 let today = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
 
@@ -38,6 +39,24 @@ exports.login = (req, res)=>{
 	});
 }
 
+exports.adminRegister = (req, res)=>{
+    res.render("adminRegister", {
+        "admin" : true,        
+        "title": "Register",
+        "register": true,
+        "adminError": req.flash("adminError")
+	});
+}
+
+exports.adminLogin = (req, res)=>{
+    res.render("adminLogin", {
+        "admin" : true,
+	    "title": "Login",
+        "register": true,
+        "adminError": req.flash("adminError")
+	});
+}
+
 exports.verifyme = (req, res)=>{
     User.findOne({username: req.user.username}, (err, user)=>{
         if(err){
@@ -47,7 +66,8 @@ exports.verifyme = (req, res)=>{
                 res.render("verify", {
                     "title": "Verify",
                     "verify": true,
-                    "error": req.flash("verifyErr")
+                    "error": req.flash("verifyErr"),
+                    "link": `<h1><a href="localhost:2020/verify/${eVerCode}"><u>Please RIGHT CLICK here as the DEMO LINK</u></a></h1>`
                 });
             }else{
                 req.flash("updateError", "<strong>Welcome back!</strong> please continue your registration");
@@ -93,40 +113,121 @@ exports.updateInfo = (req, res)=>{
             res.render("update", {
                 "title": "Update Account",
                 "update": true,
-                "error": req.flash("updateError")
+                "error": req.flash("updateError"),
+                "username": username
             });
         }
     });
 }
 
+exports.postUpdateInfo = (req, res)=>{
+    if(!emptyReferingID){
+        console.log("There is no user with the inputed referral ID");
+        req.flash("updateError", "There is no user with the inputed referral Id");
+        res.redirect("/update-info");  
+    }else if(maxReferrals){
+        console.log("The user can not accomodate more than four (4) referrals");
+        req.flash("updateError", "The user can not accomodate more than four (4) referrals");
+        res.redirect("/update-info");  
+    }else if(emptyReferingID || !maxReferrals){
+        User.findOne({userId: req.user.userId}, (err, user)=>{
+            if(err)console.log(err);
+            else{
+                user.firstname = fields.firstname;
+                user.lastname = fields.lastname;
+                user.address = fields.address;
+                user.DOB = `${fields.dd}/${fields.mm}/${fields.yy}`;
+                user.gender = fields.gender;
+                user.phone = fields.phone;
+                user.refererId = fields.refererId;
+                user.profilePic = `img/defaultpic.png`; //remove later
+
+                user.save((err)=>{
+                    if(err)console.log(err);
+                    else{
+                        console.log("User saved!")
+                        Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+                            if(err)console.log(err);
+                            else{
+                                let newFinance = new Finance();
+                                
+                                newFinance.userId = req.user.userId;
+                                newFinance.refererId = fields.refererId;
+                                newFinance.level1.totalAmount = 0;
+                                newFinance.level1.startup = 0;
+                                newFinance.level1.tBank = 0;
+                                newFinance.level1.Withdrawable = 0;
+                                newFinance.level1.constantWithdrawable = 0;
+                                newFinance.level2.startup = 0;
+
+                                newFinance.save((err)=>{
+                                    if(err)console.log(err);
+                                    else{
+                                        console.log("Finance saved!")
+                                        res.redirect("/dashboard");
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }      
+}
+
 exports.dashboard = (req, res)=>{
     Finance.findOne({userId: req.user.userId}, (err, finance)=>{
         if(err)console.log(err);
+        else if(finance.packageType == "Bronze")res.redirect("/pay/bronze");
+        else if(finance.packageType == "Silver")res.redirect("/pay/silver");
+        else if(finance.packageType == "Gold")res.redirect("/pay/gold");
+        else if(finance.packageType == "Platinum")res.redirect("/pay/platinum");
         else{
-            if(finance.packageType == "Bronze"){
-                res.redirect("/pay/bronze");
-            }else if(finance.packageType == "Silver"){
-                res.redirect("/pay/silver");
-            }else if(finance.packageType == "Gold"){
-                res.redirect("/pay/gold");
-            }else if(finance.packageType == "Platinum"){
-                res.redirect("/pay/platinum");
-            }else{
-                res.render("dashboard", {
-                    dashboard : true,
-                    Name : fullName,
-                    Image : imgTag,
-                    RefNum : refNum,
-                    totalAmount : totalAmount,
-                    startup : startup,
-                    tBank : tBank,
-                    Withdrawable : Withdrawable,
-                    refId : refId == false ? "No referrer" : refId,
-                    refName : refName == false ? "No referrer" : refName
-                });
-            }
+            res.render("dashboard", {
+                dashboard : true,
+                Name : fullName,
+                Image : imgTag,
+                RefNum : refNum,
+                totalAmount : totalAmount,
+                startup : startup,
+                tBank : tBank,
+                Withdrawable : Withdrawable1,
+                refId : refId == false ? "No referrer" : refId,
+                refName : refName == false ? "No referrer" : refName,
+                packageComplete : finance.packageComplete ? true : false,
+                hackError1 : req.flash("hackError1"),
+                matchCheck : req.flash("matchCheck")
+            });
         }
     });
+}
+
+exports.postPackages = (req, res)=>{
+    if(!refMatch){
+        res.redirect("/dashboard");
+    }else if(refMatch){
+        if(req.params.name == "bronze"){
+            ownFinance.packageType = "Bronze";
+            ownFinance.packageAmount = 15000
+            ownFinance.save(err=> err ? console.log(err) : res.redirect(`/pay/${req.params.name}`));
+        }else if(req.params.name == "silver"){
+            ownFinance.packageType = "Silver";
+            ownFinance.packageAmount = 30000
+            ownFinance.save(err=> err ? console.log(err) : res.redirect(`/pay/${req.params.name}`));
+        }else if(req.params.name == "gold"){
+            ownFinance.packageType = "Gold";
+            ownFinance.packageAmount = 60000
+            ownFinance.save(err=> err ? console.log(err) : res.redirect(`/pay/${req.params.name}`));
+        }else if(req.params.name == "platinum"){
+            ownFinance.packageType = "Platinum";
+            ownFinance.packageAmount = 120000
+            ownFinance.save(err=> err ? console.log(err) : res.redirect(`/pay/${req.params.name}`));
+        }else{
+            req.flash("hackError1", `<div class="callout callout-danger"><p>Someone Wanted to hack the system. Please be careful</p></div>`);
+            res.redirect("/dashboard"); 
+        }
+    }
 }
 
 exports.pay = (req, res)=>{
@@ -142,7 +243,7 @@ exports.pay = (req, res)=>{
                 totalAmount : totalAmount,
                 startup : startup,
                 tBank : tBank,
-                Withdrawable : Withdrawable,
+                Withdrawable : Withdrawable1,
                 refId : refId,
                 refName : refName,
                 packageType : PackageType,
@@ -150,18 +251,33 @@ exports.pay = (req, res)=>{
                 date : today,
                 phoneNo: phoneNo,
                 email : email,
-                financeID : financeID
+                financeID : financeID,
+                fincodeErr : req.flash("fincodeErr")
             });
         }
     });
 }
 
-exports.finAuth = (req, res)=>{
-    res.render("finAuth", {
-        dashboard : true,
-        profileimg : imgTag,
-        profileName : fullName,
-        "error": req.flash("finError")
+exports.postFinAuth = (req, res)=>{
+    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+        if(err)console.log(err);
+        else if(req.body.finCode !== req.body.finCode2){
+            req.flash("fincodeErr", `<div class="callout callout-danger"><p>The Travel Bank Code you inputed does not match</p></div>`);
+            res.redirect(`/pay/${req.params.name}`);
+        }else{
+            finance.finCode = req.body.finCode;
+            finance.getPay.bankName = req.body.bankName;
+            finance.getPay.accNum = req.body.accNum;
+            finance.getPay.accName = req.body.accName;
+            finance.getPay.bvn = req.body.bvn;
+
+            finance.save(err=>{
+                if(err)console.log(err);
+                else{
+                    res.redirect("/pay-now");
+                }
+            });
+        }
     });
 }
 
@@ -174,136 +290,109 @@ exports.payNow = (req, res)=>{
         totalAmount : totalAmount,
         startup : startup,
         tBank : tBank,
-        Withdrawable : Withdrawable,
+        Withdrawable : Withdrawable1,
         refId : refId,
         refName : refName,
         packageType : PackageType,
         packageAmount : PackageAmount,
+    });
+}
+
+exports.postPayNow = (req, res)=>{
+    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+        if(err)console.log(err);
+        else{
+            finance.paymentMade = true;
+            finance.level1.startup = finance.packageAmount;
+
+            finance.save(err=>{
+                if(err)console.log(err);
+                else{
+                    if(!directReferalPay) console.log("There is neither DIRECT nor PASSIVE REFERING USER");
+                    else if(!passiveReferalPay) console.log("There is DIRECT but no PASSIVE REFERING USER");
+                    else console.log("There are DIRECT and PASSIVE REFERING USERS");
+                    res.redirect("/direct-referral");
+                }
+            });
+        }
     });
 }
 
 exports.dRef = (req, res)=>{
-    Finance.findOne({userId : req.user.userId}, (err, finance)=>{
-        if(err)console.log(err);
-        else if(finance.refererId == "" && PaidPass + numOfPaidRef == 20){
-            if(finance.level2.tBank == finance.level1.tBank){
-                res.redirect("/direct-referral-L2");
-            }else{
-                finance.level2.Withdrawable = 0;
-                finance.level2.totalAmount = finance.level1.totalAmount - finance.level1.Withdrawable;
-                finance.level2.tBank = finance.level1.tBank;
-    
-                finance.save((err)=>{
-                    if(err)console.log(err);
-                    else{
-                        res.redirect("/direct-referral-L2");
-                    }
-                })
-            }
-        }else if(finance.refererId !== "" && PaidPass + numOfPaidRef == 20){
-            if(finance.level2.tBank == finance.level1.tBank){
-                res.redirect("/direct-referral-L2");
-            }else{
-                finance.level2.Withdrawable = 0;
-                finance.level2.totalAmount = finance.level1.totalAmount - finance.level1.Withdrawable;
-                finance.level2.tBank = finance.level1.tBank;
-    
-                finance.save((err)=>{
-                    if(err)console.log(err);
-                    else{
-                        DirectRef.findOne({userId: finance.refererId.slice(9)}, (err, directRef)=>{
-                            if(err)console.log(err);
-                            else{
-                                let index = indexByParams(directRef.downlines, "RefNum", req.user.userId);
-            
-                                directRef.downlines[index].level1 = "Pass";
-                                
-                                directRef.save((err)=>{
-                                    if(err)console.log(err);
-                                    else{
-                                        User.findOne({userId: directRef.userId}, (err, user)=>{
-                                            if(user.refererId == ""){
-                                                res.redirect("/direct-referral-L2");
-                                            }else if(user.refererId !== ""){
-                                                PassiveRef.findOne({upperRef: user.userId, userId: directRef.userId}, (err, passiveRef)=>{
-                                                    if(err)console.log(err);
-                                                    else{
-                                                        let passiveIndex = indexByParams(passiveRef.passiveDowns, "RefNum", req.user.userId);
-            
-                                                        passiveRef.passiveDowns[passiveIndex].level1 == "Pass";
-            
-                                                        passiveRef.save((err)=>{
-                                                            if(err)console.log(err);
-                                                            else{
-                                                                res.redirect("/direct-referral-L2");
-                                                            }
-                                                        })
-                                                    }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }  
-                        })
-                    }
-                })
-            }
-        }else{
-            res.render("dReferral", {
-                dashboard : true,
-                Name : fullName,
-                Image : imgTag,
-                RefNum : refNum,
-                totalAmount : totalAmount,
-                startup : startup,
-                tBank : tBank,
-                Withdrawable : Withdrawable,
-                refId : refId,
-                refName : refName,
-                packageType : PackageType,
-                packageAmount : PackageAmount,
-                downlineArray : referralArray,
-                noOfRef : numOfRef,
-                numOfPaidRef : numOfPaidRef,
-                less2 : numOfPaidRef < 2 ? true : false,
-                more2 : numOfPaidRef > 2 && numOfPaidRef < 4 ? true : false,
-                equal4 : numOfPaidRef == 4 ? true : false,
-                passRefNum : passRefNum,
-                PaidPass : PaidPass,
-                passLess8 : PaidPass < 8 ? true : false,
-                passMore8 : PaidPass > 8 && PaidPass < 16 ? true : false,
-                passEqual16 : PaidPass == 16 ? true : false
-            });
-        }
-    })
+    if(readyToPromote){
+        res.redirect("/direct-referral-L2");
+    }else if(!readyToPromote){
+        res.render("dReferral", {
+            dashboard : true,
+            Name : fullName,
+            Image : imgTag,
+            RefNum : refNum,
+            totalAmount : totalAmount,
+            startup : startup,
+            tBank : tBank,
+            Withdrawable1 : Withdrawable1,
+            Withdrawable2 : Withdrawable2,
+            refId : refId,
+            refName : refName,
+            packageType : PackageType,
+            packageAmount : PackageAmount,
+            downlineArray : referralArray,
+            noOfRef : numOfRef,
+            numOfPaidRef : numOfPaidRef,
+            less2 : numOfPaidRef < 2 ? true : false,
+            more2 : numOfPaidRef > 2 && numOfPaidRef < 4 ? true : false,
+            equal4 : numOfPaidRef == 4 ? true : false,
+            passRefNum : passRefNum,
+            PaidPass : PaidPass,
+            passLess8 : PaidPass < 8 ? true : false,
+            passMore8 : PaidPass > 8 && PaidPass < 16 || PaidPass == 8 ? true : false,
+            passEqual16 : PaidPass == 16 ? true : false
+        });
+    }       
 }
 
+
 exports.dRefL2 = (req, res)=>{
-    res.render("dRefL2", {
-        dashboard : true,
-        Name : fullName,
-        Image : imgTag,
-        RefNum : refNum,
-        totalAmount : totalAmount,
-        startup : startup,
-        tBank : tBank,
-        Withdrawable : Withdrawable,
-        refId : refId,
-        refName : refName,
-        packageType : PackageType,
-        packageAmount : PackageAmount,
-        downlineArray : referralArray,
-        NumOfDRefPassL1 : NumOfDRefPassL1,
-        less2 : NumOfDRefPassL1 < 2 ? true : false,
-        more2 : NumOfDRefPassL1 > 2 && NumOfDRefPassL1 < 4 ? true : false,
-        equal4 : NumOfDRefPassL1 == 4 ? true : false,
-        NumOfPRefPassL1 : NumOfPRefPassL1,
-        passLess8 : NumOfPRefPassL1 < 8 ? true : false,
-        passMore8 : NumOfPRefPassL1 > 8 && NumOfPRefPassL1 < 16 ? true : false,
-        passEqual16 : NumOfPRefPassL1 == 16 ? true : false,
-        getPay : getPay == 0 ? false : true
-    });
+    if(readyToPromote){
+        res.redirect("/dashboard");
+    }else if(!readyToPromote){
+        Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+            if(err)console.log(err);
+            else{
+                res.render("dRefL2", {
+                    dashboard : true,
+                    Name : fullName,
+                    Image : imgTag,
+                    RefNum : refNum,
+                    totalAmount : totalAmount,
+                    startup : startup,
+                    tBank : tBank,
+                    Withdrawable1 : Withdrawable1,
+                    Withdrawable2 : Withdrawable2,
+                    finishedWithdrawable : finishedWithdrawable,
+                    refId : refId,
+                    refName : refName,
+                    packageType : PackageType,
+                    packageAmount : PackageAmount,
+                    downlineArray : referralArray,
+                    NumOfDRefPassL1 : NumOfDRefPassL1,
+                    less2 : NumOfDRefPassL1 < 2 ? true : false,
+                    more2 : NumOfDRefPassL1 > 2 && NumOfDRefPassL1 < 4 ? true : false,
+                    equal4 : NumOfDRefPassL1 == 4 ? true : false,
+                    NumOfPRefPassL1 : NumOfPRefPassL1,
+                    passLess8 : NumOfPRefPassL1 < 8 ? true : false,
+                    passMore8 : NumOfPRefPassL1 > 8 && NumOfPRefPassL1 < 16 || NumOfPRefPassL1 == 8 ? true : false,
+                    passEqual16 : NumOfPRefPassL1 == 16 ? true : false,
+                    getPayTrue : getPay == true || getPayL2 == true,
+                    getPayFalse : getPay == false && getPayL2 == false,
+                    packageComplete : finance.packageComplete ? true : false,
+                    error: req.flash("finCodeError"),
+                    hackError : req.flash("hackError")
+    
+                });
+            }
+        });
+    }
 }
 
 exports.pRef = (req, res)=>{
@@ -315,7 +404,8 @@ exports.pRef = (req, res)=>{
         totalAmount : totalAmount,
         startup : startup,
         tBank : tBank,
-        Withdrawable : Withdrawable,
+        Withdrawable1 : Withdrawable1,
+        Withdrawable2 : Withdrawable2,
         refId : refId,
         refName : refName,
         packageType : PackageType,
@@ -333,7 +423,7 @@ exports.pRef = (req, res)=>{
         passRefNum : passRefNum,
         PaidPass : PaidPass,
         passLess8 : PaidPass < 8 ? true : false,
-        passMore8 : PaidPass > 8 && PaidPass < 16 ? true : false,
+        passMore8 : PaidPass > 8 && PaidPass < 16 || PaidPass == 8 ? true : false,
         passEqual16 : PaidPass == 16 ? true : false
     });
 }
@@ -347,7 +437,8 @@ exports.pRefL2 = (req, res)=>{
         totalAmount : totalAmount,
         startup : startup,
         tBank : tBank,
-        Withdrawable : Withdrawable,
+        Withdrawable1 : Withdrawable1,
+        Withdrawable2 : Withdrawable2,
         refId : refId,
         refName : refName,
         packageType : PackageType,
@@ -359,13 +450,151 @@ exports.pRefL2 = (req, res)=>{
         equal4 : NumOfDRefPassL1 == 4 ? true : false,
         pRefArray : pRefArray,
         MyrefName : MyrefName,
-        passRefNum : passRefNum,
         NumOfPRefPassL1 : NumOfPRefPassL1,
         passLess8 : NumOfPRefPassL1 < 8 ? true : false,
-        passMore8 : NumOfPRefPassL1 > 8 && NumOfPRefPassL1 < 16 ? true : false,
+        passMore8 : NumOfPRefPassL1 > 8 && NumOfPRefPassL1 < 16 || NumOfPRefPassL1 == 8 ? true : false,
         passEqual16 : NumOfPRefPassL1 == 16 ? true : false,
-        getPay : getPay == 0 ? false : true
+        getPayTrue : getPay == true || getPay2 == true,
+        getPayFalse : getPay == false && getPay2 == false
     });
+}
+
+exports.finCodeGetPay = (req, res)=>{
+    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+        if(err)console.log(err);
+        else if(finance.finCode !== req.body.finCode){
+            req.flash("finCodeError", `<div class="callout callout-danger"><p>The inputed Travel BanK Code is not correct</p></div>`);
+            res.redirect("/direct-referral-L2")
+        }else if(!req.body.level1 && !req.body.level2){
+            req.flash("finCodeError", `<div class="callout callout-danger"><p>Please click one or more level to get payment from</p></div>`);
+            res.redirect("/direct-referral-L2")
+        }else if(finance.finCode == req.body.finCode){
+            if(!req.body.level1){
+                finance.getPay.level1 = 0;
+                finance.getPay.level2 = req.body.level2.slice(2);
+            }else if(!req.body.level2){
+                finance.getPay.level1 = req.body.level1.slice(2);
+                finance.getPay.level2 = 0;
+            }else{
+                finance.getPay.level1 = req.body.level1.slice(2);
+                finance.getPay.level2 = req.body.level2.slice(2);
+            }
+            finance.save(err=> err ? console.log(err) : res.redirect("/get-pay"));
+        }
+    })
+}
+
+exports.getPayment = (req, res)=>{
+    res.render("getPay", {
+        dashboard : true,
+        Name : fullName,
+        Image : imgTag,
+        RefNum : refNum,
+        refId : refId,
+        refName : refName,
+        date : today,
+        phoneNo: phoneNo,
+        email : email,
+        financeID : financeID,
+        payLevel1 : payLevel1,
+        payLevel2 : payLevel2,
+        totalPay : totalPay,
+        postPayL1 : postPayL1,
+        postPayL2 : postPayL2
+    })
+}
+
+exports.processGetPay = (req, res)=>{
+    Finance.findOne({userId : req.user.userId}, (err, finance)=>{
+        if(err)console.log(err);
+        else if(req.body.level1 != 0 && req.body.level1 != finance.level1.Withdrawable){
+            req.flash("hackError", `<div class="callout callout-danger"><p>Someone Wanted to hack the system. Please be careful</p></div>`);
+            res.redirect("/direct-referral-L2")
+        }else if(req.body.level2 != 0 && req.body.level2 != finance.level2.Withdrawable){
+            req.flash("hackError", `<div class="callout callout-danger"><p>Someone Wanted to hack the system. Please be careful</p></div>`);
+            res.redirect("/direct-referral-L2")
+        }else{
+            finance.level1.Withdrawable = req.body.level1;
+            finance.level2.Withdrawable = req.body.level2;
+
+            finance.save(err=>{
+                if(err)console.log(err);
+                else res.redirect("/get-pay-feedback");
+            });
+        }
+    })
+}
+
+exports.getPayFeedback = (req, res)=>{
+    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
+        if(err)console.log(err);
+        else{
+            res.render("getPayFeedback", {
+                packageComplete : finance.packageComplete ? true : false,
+            })
+        }
+    })
+}
+
+exports.accountStatement = (req, res)=>{
+    res.render("accStatement", {
+        dashboard : true,
+        Name : fullName,
+        Image : imgTag,
+        RefNum : refNum,
+        totalAmount : totalAmount,
+        startup : startup,
+        tBank : tBank,
+        Withdrawable : Withdrawable1,
+        refId : refId == false ? "No referrer" : refId,
+        refName : refName == false ? "No referrer" : refName,
+        WithdrawableL1 : WithdrawableL1,
+        WithdrawableL2 : WithdrawableL2,
+        totalWithdraw : totalWithdraw,
+        tBankL1 : tBankL1,
+        tBankL2 : tBankL2,
+        totalTBank : totalTBank,
+        totalAmountL1 : totalAmountL1,
+        totalAmountL2 : totalAmountL2,
+        sumTotalAmount : sumTotalAmount,
+        startupCap : startupCap,
+        startupProgress : startupProgress,
+        withdrawStatusL1 : withdrawStatusL1,
+        withdrawStatusL1Progress : withdrawStatusL1Progress,
+        withdrawStatusL2 : withdrawStatusL2,
+        withdrawStatusL2Progress : withdrawStatusL2Progress
+    });
+}
+
+exports.adminCheckUser = (req, res)=>{
+    res.render("adminCheckUser", {
+        admin : true,
+        "noUserError": req.flash("noUser")
+    });
+}
+
+exports.postAdminCheckUser = (req, res)=>{
+    res.redirect(`/get-the-user/${req.body.refNum.slice(9)}`);
+}
+
+exports.getTheUser = (req, res)=>{
+    if(!theUser){
+        req.flash("noUser", `<div class="callout callout-danger"><h4>Warning!</h4><p>There is no user with the referral ID. Ask the customer to cross check the referal ID given.</p></div>`);
+        res.redirect("/check-user");
+    }else if(theUser){
+        res.render("getTheUser", {
+            admin : true,
+            theUser : theUser,
+            thefinance : thefinance,
+            theDRef : theDRef,
+            thePRef : thePRef,
+            level : level,
+            withdrawnStatusL1 : withdrawnStatusL1,
+            withdrawnStatusL2 : withdrawnStatusL2,
+            adminNumOfDRefPassL1 : adminNumOfDRefPassL1,
+            adminNumOfPRefPassL1 : adminNumOfPRefPassL1
+        });
+    }
 }
 
 exports.logout = (req, res)=>{
@@ -373,428 +602,7 @@ exports.logout = (req, res)=>{
     res.redirect("/login");
 }
 
-// The POST method works here******************************
-
-exports.postUpdateInfo = (req, res)=>{
-    let form = new formidable.IncomingForm();
-
-    form.keepExtensions = true;
-    form.parse(req, (err, fields, files)=>{
-        let profilePic = files.profilePic.path;
-
-        cloudinary.uploader.upload(
-            profilePic,
-            (picData)=>{
-                let profileImgUrl = picData.url;
-
-                User.findOne({username: req.user.username}, (err, user)=>{
-                    if(err)console.log(err);
-                    else{
-                        user.profilePic = profileImgUrl;
-                    }
-                    user.save((err)=>{
-                        if(err){
-                            console.log(err);
-                        }else{
-                            console.log("the Picture Uploaded with id:" + profileImgUrl)
-                        }
-                    });
-                });
-            },
-            {
-                public_id: `img_${req.user.userId}`, 
-            }
-        ); 
-
-        User.findOne({userId : fields.refererId.slice(9)}, (err, refUser)=>{
-            if(err)console.log(err);
-            else if(!refUser){
-                if(fields.refererId !== ""){
-                    console.log("There is no user with the inputed referral ID");
-                    req.flash("updateError", "There is no user with the inputed referral Id");
-                    res.redirect("/update-info");
-                }else if(fields.refererId == ""){
-                    User.findOne({username: req.user.username}, (err, user)=>{
-                        if(err)console.log(err);
-                        else{
-                            user.firstname = fields.firstname;
-                            user.lastname = fields.lastname;
-                            user.address = fields.address;
-                            user.DOB = `${fields.dd}/${fields.mm}/${fields.yy}`;
-                            user.gender = fields.gender;
-                            user.phone = fields.phone;
-                            user.refererId = fields.refererId;
-
-                            user.save((err)=>{
-                                if(err)console.log(err);
-                                else{
-                                    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
-                                        if(err)console.log(err);
-                                        else{
-                                            let newFinance = new Finance();
-                                            
-                                            newFinance.userId = req.user.userId;
-                                            newFinance.refererId = fields.refererId;
-                                            newFinance.bankName = fields.bankName;
-                                            newFinance.accName = fields.accName;
-                                            newFinance.accNum = fields.accNum;
-                                            newFinance.finCode = fields.finCode;
-                                            newFinance.level1.level = 1;
-                                            newFinance.level1.totalAmount = 0;
-                                            newFinance.level1.startup = 0;
-                                            newFinance.level1.tBank = 0;
-                                            newFinance.level1.Withdrawable = 0;
-                                            newFinance.level2.startup = 0;
-
-                                            newFinance.save((err)=>{
-                                                if(err)console.log(err);
-                                                else{
-                                                    setTimeout(()=>{
-                                                        res.redirect("/dashboard");
-                                                    }, 5000);
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            }else{
-                DirectRef.findOne({userId: refUser.userId}, (err, directRef)=>{
-                    if(err)console.log(err);
-                    else if(directRef && directRef.downlines.length === 4){
-                        console.log("The user can not accomodate more than four (4) referrals");
-                        req.flash("updateError", "The user can not accomodate more than four (4) referrals");
-                        res.redirect("/update-info");
-                    }else{
-                        User.findOne({username: req.user.username}, (err, user)=>{
-                            if(err)console.log(err);
-                            else{
-                                user.firstname = fields.firstname;
-                                user.lastname = fields.lastname;
-                                user.address = fields.address;
-                                user.DOB = `${fields.dd}/${fields.mm}/${fields.yy}`;
-                                user.gender = fields.gender;
-                                user.phone = fields.phone;
-                                user.refererId = fields.refererId;
-
-                                user.save((err)=>{
-                                    if(err)console.log(err);
-                                    else{
-                                        Finance.findOne({userId: req.user.userId}, (err, finance)=>{
-                                            if(err)console.log(err);
-                                            else{
-                                                let newFinance = new Finance();
-                                                
-                                                newFinance.userId = req.user.userId;
-                                                newFinance.refererId = fields.refererId;
-                                                newFinance.bankName = fields.bankName;
-                                                newFinance.accName = fields.accName;
-                                                newFinance.accNum = fields.accNum;
-                                                newFinance.finCode = fields.finCode;
-                                                newFinance.level1.level = 1;
-                                                newFinance.level1.totalAmount = 0;
-                                                newFinance.level1.startup = 0;
-                                                newFinance.level1.tBank = 0;
-                                                newFinance.level1.Withdrawable = 0;
-                                                newFinance.level2.startup = 0;
-
-                                                newFinance.save((err)=>{
-                                                    if(err)console.log(err);
-                                                    else{
-                                                        if(!directRef){
-                                                            let newDirectRef = new DirectRef();
-
-                                                            newDirectRef.userId = refUser.userId;
-                                                            newDirectRef.paidRef = 0;
-                                                            newDirectRef.downlines.push({
-                                                                firstname : fields.firstname,
-                                                                lastname : fields.lastname,
-                                                                RefNum : req.user.userId,
-                                                                img : req.user.profilePic,
-                                                                startupPaid : false,
-                                                                level1 : "In progress",
-                                                                level2 : "In progress",
-                                                                level3 : "In progress",
-                                                                level4 : "In progress"
-                                                            });
-
-                                                            newDirectRef.save((err)=>{
-                                                                if(err)console.log(err);
-                                                                else{
-                                                                    if(refUser.refererId == ""){
-                                                                        setTimeout(()=>{
-                                                                            res.redirect("/dashboard");
-                                                                        }, 5000);
-                                                                    }else if(refUser.refererId !== ""){
-                                                                        PassiveRef.findOne({userId : fields.refererId.slice(9), upperRef : refUser.refererId.slice(9)}, (err, passiveRef)=>{
-                                                                            if(err)console.log(err);
-                                                                            else if(!passiveRef){
-                                                                                let newPassiveRef = new PassiveRef();
-
-                                                                                newPassiveRef.upperRef = refUser.refererId.slice(9);
-                                                                                newPassiveRef.userId =  refUser.userId;
-                                                                                newPassiveRef.paidRef = 0;
-                                                                                newPassiveRef.passiveDowns.push({
-                                                                                    firstname : fields.firstname,
-                                                                                    lastname : fields.lastname,
-                                                                                    RefNum : req.user.userId,
-                                                                                    img : req.user.profilePic,
-                                                                                    startupPaid : false,
-                                                                                    level1 : "In progress",
-                                                                                    level2 : "In progress",
-                                                                                    level3 : "In progress",
-                                                                                    level4 : "In progress"
-                                                                                });
-
-                                                                                newPassiveRef.save((err)=>{
-                                                                                    if(err)console.log(err);
-                                                                                    else{
-                                                                                        setTimeout(()=>{
-                                                                                            res.redirect("/dashboard");
-                                                                                        }, 5000);
-                                                                                    }
-                                                                                })
-                                                                            }else if(passiveRef){
-
-                                                                                passiveRef.passiveDowns.push({
-                                                                                    firstname : fields.firstname,
-                                                                                    lastname : fields.lastname,
-                                                                                    RefNum : req.user.userId,
-                                                                                    img : req.user.profilePic,
-                                                                                    startupPaid : false,
-                                                                                    level1 : "In progress",
-                                                                                    level2 : "In progress",
-                                                                                    level3 : "In progress",
-                                                                                    level4 : "In progress"
-                                                                                });
-
-                                                                                passiveRef.save((err)=>{
-                                                                                    if(err)console.log(err);
-                                                                                    else{
-                                                                                        setTimeout(()=>{
-                                                                                            res.redirect("/dashboard");
-                                                                                        }, 5000);
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }
-                                                            });
-                                                        }else if(directRef){
-                                                            directRef.downlines.push({
-                                                                firstname : fields.firstname,
-                                                                lastname : fields.lastname,
-                                                                RefNum : req.user.userId,
-                                                                img : req.user.profilePic,
-                                                                startupPaid : false,
-                                                                level1 : "In progress",
-                                                                level2 : "In progress",
-                                                                level3 : "In progress",
-                                                                level4 : "In progress"
-                                                            });
-
-                                                            directRef.save((err)=>{
-                                                                if(err)console.log(err);
-                                                                else{
-                                                                    if(refUser.refererId == ""){
-                                                                        setTimeout(()=>{
-                                                                            res.redirect("/dashboard");
-                                                                        }, 5000);
-                                                                    }else if(refUser.refererId !== ""){
-                                                                        PassiveRef.findOne({userId : fields.refererId.slice(9), upperRef : refUser.refererId.slice(9)}, (err, passiveRef)=>{
-                                                                            if(err)console.log(err);
-                                                                            else if(!passiveRef){
-                                                                                let newPassiveRef = new PassiveRef();
-
-                                                                                newPassiveRef.upperRef = refUser.refererId.slice(9);
-                                                                                newPassiveRef.userId =  refUser.userId;
-                                                                                newPassiveRef.paidRef = 0;
-                                                                                newPassiveRef.passiveDowns.push({
-                                                                                    firstname : fields.firstname,
-                                                                                    lastname : fields.lastname,
-                                                                                    RefNum : req.user.userId,
-                                                                                    img : req.user.profilePic,
-                                                                                    startupPaid : false,
-                                                                                    level1 : "In progress",
-                                                                                    level2 : "In progress",
-                                                                                    level3 : "In progress",
-                                                                                    level4 : "In progress"
-                                                                                });
-
-                                                                                newPassiveRef.save((err)=>{
-                                                                                    if(err)console.log(err);
-                                                                                    else{
-                                                                                        setTimeout(()=>{
-                                                                                            res.redirect("/dashboard");
-                                                                                        }, 5000);
-                                                                                    }
-                                                                                })
-                                                                            }else if(passiveRef){
-
-                                                                                passiveRef.passiveDowns.push({
-                                                                                    firstname : fields.firstname,
-                                                                                    lastname : fields.lastname,
-                                                                                    RefNum : req.user.userId,
-                                                                                    img : req.user.profilePic,
-                                                                                    startupPaid : false,
-                                                                                    level1 : "In progress",
-                                                                                    level2 : "In progress",
-                                                                                    level3 : "In progress",
-                                                                                    level4 : "In progress"
-                                                                                });
-
-                                                                                passiveRef.save((err)=>{
-                                                                                    if(err)console.log(err);
-                                                                                    else{
-                                                                                        setTimeout(()=>{
-                                                                                            res.redirect("/dashboard");
-                                                                                        }, 5000);
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    });
-}
-
-exports.postPackages = (req, res)=>{
-    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
-        if(err){
-            console.log(err);
-        }else{
-            if(req.params.name = "bronze"){
-                finance.packageType = "Bronze";
-                finance.packageAmount = 15000
-            }
-
-            finance.save((err)=>{
-                if(err){
-                    console.log(err)
-                }else{
-                    res.redirect("/pay/bronze")
-                }
-            });
-        }
-    });
-}
-
-exports.postFinAuth = (req, res)=>{
-    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
-        if(err)console.log(err);
-        else{
-             if(finance.finCode == req.body.finCode){
-                res.redirect("/pay-now");
-             }else{
-                req.flash("finError", "The PIN you entered is incorrect");
-                res.redirect("/financial-auth");
-             }
-        }
-    })
-}
-
-exports.postPayNow = (req, res)=>{
-    Finance.findOne({userId: req.user.userId}, (err, finance)=>{
-        if(err)console.log(err);
-        else{
-            finance.paymentMade = true;
-            finance.level1.startup = 15000;
-
-            finance.save((err)=>{
-                if(err)console.log(err);
-                else{
-                    DirectRef.findOne({userId: finance.refererId.slice(9)}, (err, directRef)=>{
-                        if(err)console.log(err);
-                        else if(!directRef)res.redirect("/direct-referral");
-                        else{
-                            let index = indexByParams(directRef.downlines, "RefNum", req.user.userId);
-
-                            directRef.paidRef = directRef.paidRef + 1;
-                            directRef.downlines[index].startupPaid = true; 
-
-                            directRef.save((err)=>{
-                                if(err)console.log(err);
-                                else{
-                                    Finance.findOne({userId : directRef.userId}, (err, finance)=>{
-                                        if(err)console.log(err);
-                                        else{
-                                            let availCash = finance.packageAmount * (30/100),
-                                                nextStartup = availCash * (28/100),
-                                                readyCash = availCash - nextStartup
-
-                                            finance.level1.totalAmount = finance.level1.totalAmount + readyCash;
-                                            finance.level1.tBank = finance.level1.tBank + (readyCash * (55.5/100));
-                                            finance.level1.Withdrawable = finance.level1.Withdrawable + (readyCash * (44.5/100));
-                                            finance.level2.startup = finance.level2.startup + nextStartup;
-
-                                            finance.save((err)=>{
-                                                if(err)console.log(err);
-                                                else{
-                                                    PassiveRef.findOne({userId: directRef.userId}, (err, passiveRef)=>{
-                                                        if(err)console.log(err);
-                                                        else if(!passiveRef)res.redirect("/direct-referral");
-                                                        else{
-                                                            let passiveIndex = indexByParams(passiveRef.passiveDowns, "RefNum", req.user.userId);
-
-                                                            passiveRef.paidRef = passiveRef.paidRef + 1;
-                                                            passiveRef.passiveDowns[passiveIndex].startupPaid = true;
-
-                                                            passiveRef.save((err)=>{
-                                                                if(err)console.log(err);
-                                                                else{
-                                                                    Finance.findOne({userId : passiveRef.upperRef}, (err, finance2)=>{
-                                                                        if(err)console.log(err);
-                                                                        else{
-                                                                            let availCash2 = finance2.packageAmount * (30/100),
-                                                                                nextStartup2 = availCash2 * (28/100),
-                                                                                readyCash2 = availCash2 - nextStartup2
-                                                                                
-                                                                            finance2.level1.totalAmount = finance2.level1.totalAmount + readyCash2;
-                                                                            finance2.level1.tBank = finance2.level1.tBank + (readyCash2 * (55.5/100));
-                                                                            finance2.level1.Withdrawable = finance2.level1.Withdrawable + (readyCash2 * (44.5/100));
-                                                                            finance2.level2.startup = finance2.level2.startup + nextStartup2;
-                                                                            
-
-                                                                            finance2.save((err)=>{
-                                                                                if(err)console.log(err);
-                                                                                else {
-                                                                                    res.redirect("/direct-referral");
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    })
-                                                                }
-                                                            })
-                                                        }
-                                                    })
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+exports.adminLogout = (req, res)=>{
+    req.logout();
+    res.redirect("login");
 }

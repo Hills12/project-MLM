@@ -19,9 +19,13 @@
     <section class="content">
 
       <!-- Default box -->
+      {{{error}}}
+      {{{hackError}}}
+
+      {{#if packageComplete}}
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Quick Tips!!!</h3>
+          <h3 class="box-title">You Just Completed A Package Cycle</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -32,15 +36,41 @@
           </div>
         </div>
         <div class="box-body">
-            Congratulations!!! You just passed the level one (1) of the {{packageType}} Package. You might wish to click (if you have not) the "Get Your Pay!" button to Request for your level 1 withdrawables. Please wait for your referrals to complete their level 1 so you can move to level 3 of {{packageType}} Package.
+          Congratlations, we are glad that you stick arround to the end of the This package cycle. Please click the "Get Your Pay" button to proceed on getting your withdrawable, after that you will have to print out the travel cash document to proceed with your traveling processes.
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          <strong>Your board will be updated in respect to how your referrals troop in</strong>
+          <strong>We are glad to have you back.</strong>
         </div>
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
+      {{/if}}
+
+      {{#unless packageComplete}}
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">You Found Yourself Here Too?</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          Congratulations!!! You passed the level one (1) of the {{packageType}} Package. You might wish to click the "Get Your Pay!" button (if you have not) to Request for your level 1 withdrawables. Please wait for your referrals to complete their level 1 respectively so you can move to level 3 of {{packageType}} Package.
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <strong>Enjoy Your Stay!</strong>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+      {{/unless}}
 
       <!-- =========================================================== -->
 
@@ -111,7 +141,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Withdrawable</span>
-              <span class="info-box-number">{{Withdrawable}}</span>
+              <span class="info-box-number">{{Withdrawable2}}</span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
@@ -170,7 +200,6 @@
       {{/if }}
 
       <!-- =========================================================== -->
-
       <div class="row">
 
         <div class="col-md-3">
@@ -199,7 +228,7 @@
               <h3 class="box-title">Direct Referral</h3>
             </div>
             <div class="box-body">
-              {{NumOfDRefPassL1}} Passed Level 1
+              {{NumOfDRefPassL1}} Person(s) Passed Level 1
             </div>
             <!-- /.box-body -->
             <!-- Loading (remove the following to stop the loading)-->
@@ -219,7 +248,7 @@
               <h3 class="box-title">Direct Referral</h3>
             </div>
             <div class="box-body">
-              {{NumOfDRefPassL1}} Passed Level 1
+              {{NumOfDRefPassL1}} Person(s) Passed Level 1
             </div>
             <!-- /.box-body -->
             <!-- Loading (remove the following to stop the loading)-->
@@ -260,7 +289,7 @@
               <h3 class="box-title">Passive Referral</h3>
             </div>
             <div class="box-body">
-              {{NumOfPRefPassL1}} Passed Level 1.
+              {{NumOfPRefPassL1}} Person(s) Passed Level 1.
             </div>
             <!-- /.box-body -->
             <!-- Loading (remove the following to stop the loading)-->
@@ -272,12 +301,12 @@
           <!-- /.box -->
         </div>
 
-        {{#if getPay}}
+        {{#if getPayTrue}}
         <div class="col-md-3">
           <div class="box box-primary box-solid" style="margin-top: 15px;">
             <!-- /.box-header -->
             <div class="box-body">              
-              <button type="button" class="btn btn-group-justified btn-info">Get Your Pay!</button>
+              <button type="button" class="btn btn-group-justified btn-info" data-toggle="modal" data-target="#finCodeModal">Get Your Pay!</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -285,7 +314,7 @@
         </div>
         {{/if}}
 
-        {{#unless getPay}}
+        {{#if getPayFalse}}
         <div class="col-md-3">
           <div class="box box-warning box-solid">
             <div class="box-header">
@@ -303,7 +332,7 @@
           </div>
           <!-- /.box -->
         </div>
-        {{/unless}}
+        {{/if}}
 
         {{/if}}
 
@@ -314,7 +343,7 @@
               <h3 class="box-title">Passive Referral</h3>
             </div>
             <div class="box-body">
-                {{NumOfPRefPassL1}} Passed Level 1.
+                {{NumOfPRefPassL1}} Person(s) Passed Level 1.
             </div>
             <!-- /.box-body -->
             <!-- Loading (remove the following to stop the loading)-->
@@ -326,12 +355,12 @@
           <!-- /.box -->
         </div>
 
-        {{#if getPay}}
+        {{#if getPayTrue}}
         <div class="col-md-3">
           <div class="box box-primary box-solid" style="margin-top: 15px;">
             <!-- /.box-header -->
             <div class="box-body">              
-              <button type="button" class="btn btn-group-justified btn-info">Get Your Pay!</button>
+              <button type="button" class="btn btn-group-justified btn-info" data-toggle="modal" data-target="#finCodeModal">Get Your Pay!</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -339,7 +368,7 @@
         </div>
         {{/if}}
 
-        {{#unless getPay}}
+        {{#if getPayFalse}}
         <div class="col-md-3">
           <div class="box box-warning box-solid">
             <div class="box-header">
@@ -357,7 +386,7 @@
           </div>
           <!-- /.box -->
         </div>
-        {{/unless}}
+        {{/if}}
         {{/if}}
 
         {{#if passEqual16}}
@@ -384,7 +413,7 @@
           <div class="box box-primary box-solid" style="margin-top: 15px;">
             <!-- /.box-header -->
             <div class="box-body">              
-              <button type="button" class="btn btn-group-justified btn-info">Get Your Pay!</button>
+              <button type="button" class="btn btn-group-justified btn-info" data-toggle="modal" data-target="#finCodeModal">Get Your Pay!</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -447,6 +476,54 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+
+<!--Fincode Modal -->
+<div class="modal fade in" id="finCodeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/travel-bank-get-pay" method="Post" onsubmit="getPayBtn.disabled = true; return true;">
+      <div class="modal-header">
+        <h4 class="modal-title">Select The Payment Level</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-key"></i></span>
+          <input type="password" class="form-control" name="finCode" placeholder="Travel Bank Code" required autofocus>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" name="level1" value="{{Withdrawable1}}">
+                  </span>
+              <input type="text" class="form-control" value="Level 1 || {{Withdrawable1}}" disabled>
+            </div>
+            <!-- /input-group -->
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <div class="input-group">
+                  <span class="input-group-addon">
+                    <input type="checkbox" name="level2" value="{{finishedWithdrawable}}">
+                  </span>
+              <input type="text" class="form-control" value="Level 2 || {{finishedWithdrawable}}" disabled>
+            </div>
+            <!-- /input-group -->
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="getPayBtn">Get Payment</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Fincode Modal -->
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->

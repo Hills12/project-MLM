@@ -22,19 +22,19 @@
   </div>
   <div class="container__child signup__form">
     <br /><br /><br />
-    <form method="POST">
+    <form method="POST"  onsubmit="loginBtn.disabled = true; return true;">
       <div class="form-group">
         <label for="username">Username</label>
-        <input class="form-control" type="text" name="logUserName" id="username" autofocus required />
+        <input class="form-control" type="text" name="logUserName" id="" autofocus required />
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input class="form-control" type="password" name="logPassword" id="password" required />
+        <input class="form-control" type="password" name="logPassword" id="password" required value="caca"/>
       </div>
       <div class="m-t-lg">
         <ul class="list-inline">
           <li>
-            <input class="btn btn--form" type="submit" value="Login" />
+            <button class="btn btn--form" name="loginBtn" type="submit">Login</button>
           </li>
           <li>
             <a class="signup__link" href="/register">I am not yet a member</a>

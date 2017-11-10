@@ -1,0 +1,286 @@
+<body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
+<div class="wrapper" style="height: auto; min-height: 100%;">
+
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand"><b>Travcut</b>MLM <b>Admin</b></a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+          <form class="navbar-form navbar-left" method="Post" action="/check-user">
+            <div class="form-group">
+              <input type="text" class="form-control" id="navbar-search-input" style="width: 500px" name="refNum" placeholder="User's Referral Number">
+            </div>
+          </form>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+    <div class="content-wrapper" style="min-height: 281px;">
+        <div class="container">
+        <!-- Main content -->
+        <section class="content">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">User Basic Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Full name</th>
+                                                <th class="sorting" >Username</th>
+                                                <th class="sorting" >User ID</th>
+                                                <th class="sorting_asc" >Referral ID</th>
+                                                <th class="sorting" >Phone Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{theUser.firstname}} {{theUser.lastname}}</td>
+                                                <td class="">{{theUser.username}}</td>
+                                                <td class="">Ref/trav/{{theUser.userId}}</td>
+                                                <td class="sorting_1">{{theUser.refererId}}</td>
+                                                <td>{{theUser.phone}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Email Address</th>
+                                                <th class="sorting" >Email Verified?</th>
+                                                <th class="sorting" >Address</th>
+                                                <th class="sorting_asc" >Date of Birth</th>
+                                                <th class="sorting" >Gender</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{theUser.email}}</td>
+                                                <td class="">{{theUser.eVerified}}</td>
+                                                <td class="">{{theUser.address}}</td>
+                                                <td class="sorting_1">{{theUser.DOB}}</td>
+                                                <td>{{theUser.gender}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">User Financial Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Startup Paid?</th>
+                                                <th class="sorting" >Package Type</th>
+                                                <th class="sorting" >Level Progress</th>
+                                                <th class="sorting" >Package Complete</th>
+                                                <th class="sorting" >Level 1 Withdrawn</th>
+                                                <th class="sorting" >Level 2 Withdrawn</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{thefinance.paymentMade}}</td>
+                                                <td class="">{{thefinance.packageType}}</td>
+                                                <td class="">{{level}}</td>
+                                                <td class="sorting_1">{{thefinance.packageComplete}}</td>
+                                                <td class="">{{withdrawnStatusL1}}</td>
+                                                <td class="sorting_1">{{withdrawnStatusL2}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Bank Name</th>
+                                                <th class="sorting" >Account Name</th>
+                                                <th class="sorting" >Account Number</th>
+                                                <th class="sorting_asc" >B. V. Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{thefinance.getPay.bankName}}</td>
+                                                <td class="">{{thefinance.getPay.accName}}</td>
+                                                <td class="">{{thefinance.getPay.accNum}}</td>
+                                                <td class="sorting_1">{{thefinance.getPay.bvn}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br />
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" >Level 1 Travel Bank</th>
+                                                <th class="sorting" >Level 2 Travel Bank</th>
+                                                <th class="sorting" >Level 1 Withdrawable</th>
+                                                <th class="sorting" >Level 2 Withdrawable</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{thefinance.level1.tBank}}</td>
+                                                <td class="">{{thefinance.level2.tBank}}</td>
+                                                <td class="">{{thefinance.level1.constantWithdrawable}}</td>
+                                                <td class="">{{thefinance.level2.constantWithdrawable}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">User Direct Referral Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Number of Referrals</th>
+                                                <th class="sorting" >How many paid?</th>
+                                                <th class="sorting" >How many Pass Level 1</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{theDRef.downlines.length}}</td>
+                                                <td class="">{{theDRef.paidRef}}</td>
+                                                <td class="">{{adminNumOfDRefPassL1}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">User Passive Referral Information</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example2" style="border-color:black;" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" >Upper Referral</th>
+                                                <th class="sorting" >Number of Referrals</th>
+                                                <th class="sorting" >How many paid?</th>
+                                                <th class="sorting" >How many Pass Level 1</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="even">
+                                                <td class="">{{thePRef.upperRef}}</td>
+                                                <td class="">{{thePRef.passiveDowns.length}}</td>
+                                                <td class="">{{thePRef.paidRef}}</td>
+                                                <td class="sorting_1">{{adminNumOfPRefPassL1}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+        </section>
+        <!-- /.content -->
+        </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        Developed by<b> Tobi Okedeji</b>
+      </div>
+        <strong>Copyright &copy; 2017 <a href="https://adminlte.io">Travcut MLM</a>.</strong> All rights
+        reserved.
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+
+
+</body>

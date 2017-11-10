@@ -11,7 +11,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        {{packageType}} Startup Payment
+        Get Your Payment
       </h1>
     </section>
 
@@ -32,103 +32,15 @@
           </div>
         </div>
         <div class="box-body">
-         You are certain that the invoice is correct and you are about to make the payment. Kindly fill the payment form below and then proceed to make payment for the {{packageType}} package.  
+            The invoice below is to get the payment of your choosen package. Carefully cross-check the invoice and then proceed to get your package payment. 
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          <strong>Take the step: You'll be glad you did!</strong>
+          <strong>Some steps to the finish line...</strong>
         </div>
         <!-- /.box-footer-->
       </div>
-      <!-- /.box -->
-
-      <!-- =========================================================== -->
-
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-aqua">
-            <span class="info-box-icon"><i class="fa fa-play"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Startup</span>
-              <span class="info-box-number">{{startup}}</span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Startup in a bit...
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-aqua">
-            <span class="info-box-icon"><i class="fa fa-hashtag"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">total Earned</span>
-              <span class="info-box-number">{{totalAmount}}</span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Zero naira made!
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-aqua">
-            <span class="info-box-icon"><i class="fa fa-plane"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Travel Bank</span>
-              <span class="info-box-number">{{tBank}}</span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Bank is empty!!!
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-aqua">
-            <span class="info-box-icon"><i class="fa fa-money"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Withdrawable</span>
-              <span class="info-box-number">{{Withdrawable}}</span>
-
-              <div class="progress">
-                <div class="progress-bar" style="width: 100%"></div>
-              </div>
-                  <span class="progress-description">
-                    Yet to sow...
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+      <!-- /.box -->      
 
       <!-- =========================================================== -->
 
@@ -176,12 +88,69 @@
       <div class="row">
 
         <div class="col-md-3">
-          <div class="box box-success box-solid">
-            <div class="box-header">
+          <div class="box box-primary box-solid">
+            <div class="box-header with-border">
               <h3 class="box-title">Startup Payment</h3>
+
+              <div class="box-tools pull-right">
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              Payment Made! <span class="fa fa-check"></span>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Direct Referral</h3>
+
+              <div class="box-tools pull-right">
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              Not Needed Here <span class="fa fa-check"></span>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Passive Referral</h3>
+
+              <div class="box-tools pull-right">
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              Not Needed Here <span class="fa fa-check"></span>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3">
+          <div class="box box-warning box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Request Withdrawal</h3>
             </div>
             <div class="box-body">
-              Proceed to make payment
+              Cross-check the invoice
             </div>
             <!-- /.box-body -->
             <!-- Loading (remove the following to stop the loading)-->
@@ -194,68 +163,134 @@
         </div>
         <!-- /.col -->
 
-        <div class="col-md-3">
-          <div class="box box-danger box-solid">
-            <div class="box-header">
-              <h3 class="box-title">Direct Referral</h3>
-            </div>
-            <div class="box-body">
-              No direct referral yet
-            </div>
-            <!-- /.box-body -->
-            <!-- Loading (remove the following to stop the loading)-->
-            <div class="overlay">
-              <i class="fa fa-refresh fa-spin"></i>
-            </div>
-            <!-- end loading -->
-          </div>
-          <!-- /.box -->
-        </div>
-
-        <div class="col-md-3">
-          <div class="box box-danger box-solid">
-            <div class="box-header">
-              <h3 class="box-title">Passive Referral</h3>
-            </div>
-            <div class="box-body">
-              No Passive referral yet
-            </div>
-            <!-- /.box-body -->
-            <!-- Loading (remove the following to stop the loading)-->
-            <div class="overlay">
-              <i class="fa fa-refresh fa-spin"></i>
-            </div>
-            <!-- end loading -->
-          </div>
-          <!-- /.box -->
-        </div>
-
-        <div class="col-md-3">
-          <div class="box box-danger box-solid">
-            <div class="box-header">
-              <h3 class="box-title">Request Withdrawal</h3>
-            </div>
-            <div class="box-body">
-              Not yet ripe for withdrawal
-            </div>
-            <!-- /.box-body -->
-            <!-- Loading (remove the following to stop the loading)-->
-            <div class="overlay">
-              <i class="fa fa-refresh fa-spin"></i>
-            </div>
-            <!-- end loading -->
-          </div>
-          <!-- /.box -->
-        </div>
-
       </div>
       <!-- /.row -->
 
-    <!-- =========================================================== -->
-        <h1>There will be payment API here (Fluterwave or Paystack).. Done later!</h1>
-        <form method="Post" id="paynow" onsubmit="payButton.disabled = true; return true;">
-            <button class="btn btn-success" type="submit" autofocus name="payButton">Make Payment</button>
-        </form>
+      <!-- =========================================================== -->
+
+      <!-- Main content -->
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">Travcut MLM. ***INVOICE***
+            <small class="pull-right">Date: {{date}}</small>
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          From
+          <address>
+            <strong>Travcut MLM</strong><br>
+            Phone: (555) 539-1037<br>
+            Email: john.doe@example.com
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          To
+          <address>
+            <strong>{{Name}}</strong><br>
+            Phone: {{phoneNo}}<br>
+            Email: {{email}}
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <br>
+          <br>
+          <b>Order ID:</b> {{financeID}}<br>
+          <br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- Table row -->
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Qty</th>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>Level 1</td>
+              <td>Level 1 Withdrawable</td>
+              <td>₦ {{payLevel1}}</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Level 2</td>
+              <td>Level 2 Withdrawable</td>
+              <td>₦ {{payLevel2}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-8"></div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <p class="lead">Withdrawal Due {{date}}</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:50%">Total Withdrawal:</th>
+                <td>₦ {{totalPay}}</td>
+              </tr>
+              <tr>
+                <th>Bank Charges (10%)</th>
+                <td>₦ 1,500</td>
+              </tr>
+              <tr>
+                <th>Total:</th>
+                <td>₦ 16,500</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- this row will not appear when printing -->
+      <div id="payo" class="row no-print">
+        <div class="col-xs-12">
+          <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+
+          <form action="/process-get-pay" method="Post" onsubmit="processGetPay.disabled = true; return true;">
+            <input type="text" name="level1" value="{{postPayL1}}" hidden />
+            <input type="text" name="level2" value="{{postPayL2}}" hidden />
+          
+            <button type="submit" class="btn btn-success pull-right" name="processGetPay" autofocus><i class="fa fa-credit-card"></i> Get Payment</button>
+          </form>
+
+          {{!-- <a href="/get-pay-feedback"><button class="btn btn-success pull-right" autofocus><i class="fa fa-credit-card"></i> Get Payment</button></a> --}}
+          
+          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Generate PDF
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
     <!-- =========================================================== -->
 
     </section>

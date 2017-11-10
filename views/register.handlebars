@@ -19,7 +19,7 @@
     <div class="signup__overlay"></div>
   </div>
   <div class="container__child signup__form">
-    <form action="" method="POST">
+    <form action="" method="POST" onsubmit="loginButton.disabled = true; return true;">
       <div class="form-group">
         <label for="username">Username</label>
         <input class="form-control" type="text" name="regUsername" id="username" autofocus required />
@@ -30,16 +30,16 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input class="form-control" type="password" name="regPassword" id="password" required />
+        <input class="form-control" type="password" name="regPassword" id="password" required value="caca"/>
       </div>
       <div class="form-group">
         <label for="passwordRepeat">Repeat Password</label>
-        <input class="form-control" type="password" name="regPassword2" id="passwordRepeat" required />
+        <input class="form-control" type="password" name="regPassword2" id="passwordRepeat" required value="caca"/>
       </div>
       <div class="m-t-lg">
         <ul class="list-inline">
           <li>
-            <button class="btn btn--form">Register</button>
+            <button class="btn btn--form" name="loginButton">Register</button>
           </li>
           <li>
             <a class="signup__link" href="/login">I am already a member</a>
@@ -52,5 +52,6 @@
     </form>  
   </div>
 </div>
+
   
 </body>

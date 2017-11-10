@@ -1,5 +1,5 @@
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
-<!-- Site wrapper -->
+<!-- Site wrapper  -->
 <div class="wrapper">
 
   <!-- ============================================== -->
@@ -18,8 +18,36 @@
 
     <!-- Main content -->
     <section class="content">
+      {{{hackError1}}}
+      {{{matchCheck}}}
 
       <!-- Default box -->
+      {{#if packageComplete}}
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">You Just Completed A Package Cycle</h3>
+
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          Congratlations, we are glad that you stick arround to the end of the last package cycle. We trust that you must have enjoyed the goodies of the package you completed. You might want to start another package cycle if you wish. Kindly pick any of the packages below as it suits your choice.
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <strong>We are glad to have you back.</strong>
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+      {{/if}}
+
+      {{#unless packageComplete}}
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">You Found Yourself Here Too?</h3>
@@ -42,6 +70,7 @@
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
+      {{/unless}}
 
       <!-- =========================================================== -->
 
@@ -191,8 +220,8 @@
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
             <!-- /.box-body -->
-            <form action="/package/bronze" method="post" class="box-footer">
-              <button type="submit" class="btn btn-primary btn-flat btn-group-justified">Go for Bronze!</button>
+            <form action="/package/bronze" method="post" class="box-footer" onsubmit="bronzeButton.disabled = true; return true;">
+              <button type="submit" class="btn btn-primary btn-flat btn-group-justified" name="bronzeButton" autofocus>Go for Bronze!</button>
             </form>
             <!-- /.box-footer-->
           </div>
@@ -217,9 +246,9 @@
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-              <button type="submit" class="btn btn-success btn-flat btn-group-justified">Go for Silver!</button>
-            </div>
+            <form action="/package/silver" method="post" class="box-footer" onsubmit="silverButton.disabled = true; return true;">
+              <button type="submit" class="btn btn-success btn-flat btn-group-justified" name="silverButton">Go for Silver!</button>
+            </form>
             <!-- /.box-footer-->
           </div>
           <!--/.direct-chat -->
@@ -243,9 +272,9 @@
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-              <button type="submit" class="btn btn-warning btn-flat btn-group-justified">Go for Gold!</button>
-            </div>
+            <form action="/package/gold" method="post" class="box-footer" onsubmit="goldButton.disabled = true; return true;">
+              <button type="submit" class="btn btn-warning btn-flat btn-group-justified" name="goldButton">Go for Gold!</button>
+            </form>
             <!-- /.box-footer-->
           </div>
           <!--/.direct-chat -->
@@ -269,8 +298,8 @@
               <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
-              <button type="submit" class="btn btn-danger btn-flat btn-group-justified">Go for Platinum!</button>
+            <form action="/package/platinum" method="post" class="box-footer" onsubmit="platinumButton.disabled = true; return true;">
+              <button type="submit" class="btn btn-danger btn-flat btn-group-justified" name="platinumButton">Go for Platinum!</button>
             </div>
             <!-- /.box-footer-->
           </div>

@@ -12,7 +12,9 @@ const   express = require("express"), app = express(),
         nodemailer = require('nodemailer'),
         cloudinary = require("cloudinary"),
         passport = require("passport"),
-        LocalStrategy = require("passport-local").Strategy;
+        LocalStrategy = require("passport-local").Strategy,
+        adminPassport = require("passport"),
+        adminLocalStrategy = require("passport-local").Strategy;
 
 //import all local packages*********************************
 const   route = require("./routes/route.js");
@@ -49,7 +51,9 @@ app .use(express.static(`${__dirname}/public`))
     }))
     .use(flash())
     .use(passport.initialize())
-    .use(passport.session());
+    .use(passport.session())
+    .use(adminPassport.initialize())
+    .use(adminPassport.session());
 
 //template engine specifications*****************************
 let hbsLayout = {
@@ -61,10 +65,10 @@ app .engine("handlebars", hbs.create(hbsLayout).engine)
     .set("view engine", "handlebars");
 
 //passport strategy configurations***************************
-passportConfig(passport, LocalStrategy, nodemailer);
+passportConfig(passport, LocalStrategy, adminPassport, adminLocalStrategy, nodemailer);
 
 //about all routes*******************************************
-route(express, app, passport, cloudinary);
+route(express, app, passport, adminPassport, cloudinary);
 
 /* //CORS origin allowance**************************************
 app.use(allowAJAX); */
