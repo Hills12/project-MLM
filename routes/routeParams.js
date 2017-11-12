@@ -67,7 +67,7 @@ exports.verifyme = (req, res)=>{
                     "title": "Verify",
                     "verify": true,
                     "error": req.flash("verifyErr"),
-                    "link": `<h1><a href="travcutt.herokuapp.com/verify/${eVerCode}"><u>Please RIGHT CLICK here as the DEMO LINK</u></a></h1>`
+                    "link": `<h1><a href="/verify/${eVerCode}"><u>Please RIGHT CLICK here as the DEMO LINK</u></a></h1>`
                 });
             }else{
                 req.flash("updateError", "<strong>Welcome back!</strong> please continue your registration");
